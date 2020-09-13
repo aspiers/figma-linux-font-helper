@@ -37,17 +37,22 @@ def get_font_list():
         details = font_line.split(" | ")
 
         if details[0] not in font_list:
-
-            font_list[details[0].strip()] = [{
-                "localizedFamily": details[1].split(",", 1)[0].strip(),
+            path = details[0].strip()
+            family = details[1].split(",", 1)[0].strip()
+            localizedFamily = details[1].split(",", 1)[0].strip()
+            style = details[3].split(",", 1)[0].strip()
+            localizedStyle = details[3].split(",", 1)[0].strip()
+            font_list[path] = [{
+                "localizedFamily": localizedFamily,
                 "postscript": details[4].strip(),
-                "style": details[3].split(",", 1)[0].strip(),
+                "style": style,
                 "weight": details[2],
                 "stretch": 5,
                 "italic": True if re.match("Italic|Oblique", details[3]) else False,
-                "family": details[1].split(",", 1)[0].strip(),
-                "localizedStyle": details[3].split(",", 1)[0].strip()
+                "family": family,
+                "localizedStyle": localizedStyle,
             }]
+            print(f"{family} {style} {path}")
 
     return font_list
 
